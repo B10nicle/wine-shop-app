@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  wine-service:
+    build: wine-shop-main
+    image: wine-shop-main
+    container_name: wine_shop_main_container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/wine-shop-db
+
+  db:
+    image: postgres:14.6-alpine
+    container_name: wine-shop-db
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=wine-shop-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
